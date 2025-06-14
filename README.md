@@ -15,6 +15,8 @@ Proyectito genial para poemario/libro/recursos relacionados.
   (__)       ()__________)
 ```
 
+"Web privada con clave si has comprado la versión digital del libro -> Inicio de sesión. Si la gente lo vende de segunda mano se puede liberar? Base de datos se puede guardar... Qué librería ha comprado cada uno el libro, versión online o física o las dos, guardar correo para mandar"
+
 ## Desarrollo
 
 Emplearemos astro + tailwind para el frontend. Un poquito de mockup, un poquito de desarrollo de software y un poquito de diagramas UML.
