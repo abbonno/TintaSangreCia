@@ -1,0 +1,56 @@
+name: Notificar Discord en varios eventos
+
+on:
+  push:
+  pull_request:
+    types: [opened, closed, reopened, synchronized]
+  issues:
+    types: [opened, closed, reopened, assigned, unassigned]
+  issue_comment:
+    types: [created]
+  pull_request_review:
+    types: [submitted]
+
+jobs:
+  notify-discord:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Construir mensaje
+        id: build-message
+        run: |
+          EVENT="${{ github.event_name }}"
+          ACTION="${{ github.event.action }}"
+          MESSAGE=""
+
+          if [[ "$EVENT" == "push" ]]; then
+            MESSAGE="📢 Push en repo **${{ github.repository }}** por **${{ github.actor }}** en rama **${{ github.ref_name }}**."
+
+          elif [[ "$EVENT" == "pull_request" ]]; then
+            PR_NUMBER="${{ github.event.pull_request.number }}"
+            PR_TITLE="${{ github.event.pull_request.title }}"
+            PR_URL="${{ github.event.pull_request.html_url }}"
+            MESSAGE="🔃 Pull request #${PR_NUMBER} *${ACTION}* por **${{ github.actor }}**: [${PR_TITLE}](${PR_URL})"
+
+          elif [[ "$EVENT" == "issues" ]]; then
+            ISSUE_NUMBER="${{ github.event.issue.number }}"
+            ISSUE_TITLE="${{ github.event.issue.title }}"
+            ISSUE_URL="${{ github.event.issue.html_url }}"
+
+            if [[ "$ACTION" == "assigned" ]]; then
+              ASSIGNEE="${{ github.event.issue.assignee.login }}"
+              MESSAGE="👤 Issue #${ISSUE_NUMBER} *asignado* a **${ASSIGNEE}**: [${ISSUE_TITLE}](${ISSUE_URL})"
+
+            elif [[ "$ACTION" == "closed" ]]; then
+              MESSAGE="✅ Issue #${ISSUE_NUMBER} *resuelto* por **${{ github.actor }}**: [${ISSUE_TITLE}](${ISSUE_URL})"
+
+            else
+              MESSAGE="❗ Issue #${ISSUE_NUMBER} *${ACTION}* por **${{ github.actor }}**: [${ISSUE_TITLE}](${ISSUE_URL})"
+            fi
+          fi
+
+          echo "message=$MESSAGE" >> $GITHUB_OUTPUT
+
+      - name: Enviar mensaje a Discord
+        if: ${{ steps.build-message.outputs.message != '' }}
+        run: |
+          curl -H "Content-Type: application/json" -X POST -d "{\"content\": \"${{ steps.build-message.outputs.message }}\"}" ${{ secrets.DISCORD_WEBHOOK_URL }}
