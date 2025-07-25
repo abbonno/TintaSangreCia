@@ -1,0 +1,111 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<html>
+  <head>
+    <title>Visor del Libro</title>
+    <style>
+      body {
+        margin: 0;
+        background-color: #111;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        overflow: hidden;
+        user-select: none;
+      }
+
+      #flipbook {
+        position: relative;
+        width: 90vw;
+        height: 90vh;
+        background: #000;
+        box-shadow: 0 0 20px #000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .page {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        display: none;
+      }
+
+      .page.active {
+        display: block;
+      }
+
+      .controls {
+        position: absolute;
+        bottom: 1rem;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 1rem;
+      }
+
+      button {
+        background-color: #333;
+        color: white;
+        border: none;
+        padding: 0.5rem 1rem;
+        font-size: 1rem;
+        cursor: pointer;
+        border-radius: 5px;
+      }
+
+      button:hover {
+        background-color: #555;
+      }
+    </style>    
+  </head>
+  <body>
+    <div id="flipbook">
+      <img class="page active" src="/book/page1.png" alt="Página 1" id="page-image" />
+      <div class="controls">
+        <button onclick="prevPage()">Anterior</button>
+        <span id="page-count" style="color:white"></span>
+        <button onclick="nextPage()">Siguiente</button>
+      </div>
+    </div>
+
+    <script>
+      const totalPages = 10; // cambia este número según cuántas páginas tengas
+      let currentPage = 1;
+
+      const image = document.getElementById('page-image');
+      const counter = document.getElementById('page-count');
+
+      function updatePage() {
+        image.src = `/book/page${currentPage}.png`;
+        counter.textContent = `${currentPage} / ${totalPages}`;
+      }
+
+      function nextPage() {
+        if (currentPage < totalPages) {
+          currentPage++;
+          updatePage();
+        }
+      }
+
+      function prevPage() {
+        if (currentPage > 1) {
+          currentPage--;
+          updatePage();
+        }
+      }
+
+      // Protección básica
+      document.addEventListener('contextmenu', e => e.preventDefault());
+      document.addEventListener('keydown', e => {
+        if (e.ctrlKey || e.key === 'PrintScreen') e.preventDefault();
+      });
+
+      updatePage();
+    </script>
+  </body>
+</html>
