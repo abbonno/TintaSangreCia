@@ -22,3 +22,10 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# Archivos temporales del editor
+*.swk
+*.swn
+
+# extras
+node_modules/
