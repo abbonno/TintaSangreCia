@@ -1,10 +1,11 @@
 ---
+import { Image } from 'astro:assets';
 import Logo from '../assets/logo.png';
 ---
 
 <div class="text-white p-4 flex items-center justify-between">
   <div class="flex items-center">
-    <img src={Logo.src} alt="Logo" class="h-20 w-20 mr-4" />
+    <Image src={Logo} alt="Logo" width={80} height={80} class="h-20 w-20 mr-4" loading="eager" />
   </div>
 
   <nav class="space-x-6">
