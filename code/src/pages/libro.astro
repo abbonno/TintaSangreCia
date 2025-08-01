@@ -1,0 +1,44 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout>
+  <main class="bg-[#111] text-white min-h-screen flex flex-col items-center justify-center py-8 select-none">
+    <div id="flipbook" class="relative w-[90vw] max-w-5xl h-[90vh] bg-black shadow-lg flex items-center justify-center">
+      <img class="page active w-full h-full object-contain" src="/book/page1.png" alt="Página 1" id="page-image" />
+
+      <div class="controls absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-4">
+        <button id="prev" class="bg-[#333] px-4 py-2 rounded hover:bg-[#555]">Anterior</button>
+        <span id="page-counter" class="text-white">Página 1 de 4</span>
+        <button id="next" class="bg-[#333] px-4 py-2 rounded hover:bg-[#555]">Siguiente</button>
+      </div>
+    </div>
+
+    <script type="text/javascript" is:inline>
+      const totalPages = 4;
+      let currentPage = 1;
+
+      const pageImage = document.getElementById("page-image");
+      const pageCounter = document.getElementById("page-counter");
+
+      document.getElementById("next").addEventListener("click", () => {
+        if (currentPage < totalPages) {
+          currentPage++;
+          updatePage();
+        }
+      });
+
+      document.getElementById("prev").addEventListener("click", () => {
+        if (currentPage > 1) {
+          currentPage--;
+          updatePage();
+        }
+      });
+
+      function updatePage() {
+        pageImage.src = `/book/page${currentPage}.png`;
+        pageCounter.textContent = `Página ${currentPage} de ${totalPages}`;
+      }
+    </script>
+  </main>
+</Layout>
