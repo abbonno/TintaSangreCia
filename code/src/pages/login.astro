@@ -1,0 +1,36 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout>
+    <form 
+      class="bg-white p-8 rounded shadow-md w-full max-w-sm"
+      method="POST" 
+      action="/api/login"
+    >
+      <h2 class="text-2xl font-bold mb-6 text-center text-gray-900">Iniciar sesión</h2>
+      
+      <label class="block mb-2 font-medium text-gray-700">Email</label>
+      <input 
+        name="email" 
+        type="email" 
+        required 
+        class="w-full p-2 mb-4 border border-gray-300 rounded text-gray-900"
+      />
+
+      <label class="block mb-2 font-medium text-gray-700">Contraseña</label>
+      <input 
+        name="password" 
+        type="password" 
+        required 
+        class="w-full p-2 mb-6 border border-gray-300 rounded text-gray-900"
+      />
+
+      <button 
+        type="submit" 
+        class="w-full bg-blue-600 text-white p-2 rounded hover:bg-blue-700"
+      >
+        Entrar
+      </button>
+    </form>
+</Layout>
