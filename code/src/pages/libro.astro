@@ -1,42 +1,20 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import { convertirDocxAHtml } from "../lib/docxToHtml.js";
-
-const htmlLibro = await convertirDocxAHtml();
+import Layout from '../layouts/Layout.astro';
 ---
 
-<Layout>
-  <main class="bg-[#111] text-white min-h-screen flex flex-col items-center justify-center py-8 select-none">
-    <h1 class="text-2xl mb-4">Visor de Libro</h1>
-
-    <!-- Contenedor del libro -->
-    <div id="contenido" class="bg-white text-black p-6 w-[90vw] max-w-4xl h-[80vh] overflow-auto">
-      <Fragment set:html={htmlLibro} />
+<Layout title="Libro">
+  <main style="display:flex; justify-content:center; align-items:center; height:100vh; background:#f5f5f5;">
+    <div class="book-wrapper">
+      <div class="book" id="bookContainer"></div>
+      
+      <!-- Controles de navegación -->
+      <div class="controls">
+        <button id="prevBtn" class="nav-btn" disabled>← Anterior</button>
+        <span id="pageInfo" class="page-info">Página 1 de 1</span>
+        <button id="nextBtn" class="nav-btn">Siguiente →</button>
+      </div>
     </div>
   </main>
 
-  <script type="text/javascript" is:inline>
-    let comentarios = [];
-
-    const contenedor = document.getElementById("contenido");
-
-    contenedor.addEventListener("mouseup", () => {
-      const seleccion = window.getSelection();
-      const texto = seleccion.toString();
-
-      if (texto.trim()) {
-        const rango = seleccion.getRangeAt(0);
-        const span = document.createElement("span");
-        span.className = "bg-yellow-300";
-        rango.surroundContents(span);
-
-        comentarios.push({
-          texto: texto,
-          fecha: new Date().toISOString()
-        });
-
-        console.log("Comentarios:", comentarios);
-      }
-    });
-  </script>
+  <script src="../scripts/book-paginator.js"></script>
 </Layout>
