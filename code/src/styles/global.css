@@ -1,1 +1,246 @@
 @import "tailwindcss";
+
+
+/* ===========================================
+   ESTILOS ESPECÍFICOS PARA EL SISTEMA DE LIBRO
+   =========================================== */
+
+/* Contenedor principal del libro */
+.book-wrapper {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  width: 90% !important;
+  height: 90% !important;
+}
+
+/* Contenedor del contenido del libro */
+.book {
+  width: 100% !important;
+  height: calc(100% - 60px) !important;
+  background: white !important;
+  color: black !important;
+  padding: 40px !important;
+  box-shadow: 0 0 15px rgba(0,0,0,0.3) !important;
+  overflow: hidden !important;
+  position: relative !important;
+  
+  /* Configuración de columnas - Forzar dos columnas */
+  column-count: 2 !important;
+  column-gap: 60px !important;
+  column-fill: balance !important;
+  column-width: auto !important;
+  
+  /* Reset de márgenes y paddings que Tailwind pueda aplicar */
+  margin: 0 !important;
+}
+
+/* Títulos dentro del libro - Alta especificidad */
+#bookContainer h1,
+.book h1,
+.book-wrapper .book h1 {
+  font-size: 3rem !important;
+  font-weight: 700 !important;
+  color: #2c3e50 !important;
+  margin: 1.5rem 0 1rem 0 !important;
+  padding: 0 !important;
+  break-inside: avoid !important;
+  column-span: none !important;
+  line-height: 1.2 !important;
+  text-align: left !important;
+  border: none !important;
+  background: none !important;
+  text-transform: none !important;
+  letter-spacing: normal !important;
+}
+
+/* Párrafos dentro del libro */
+#bookContainer p,
+.book p,
+.book-wrapper .book p {
+  margin: 0.5rem 0 !important;
+  line-height: 1.6 !important;
+  padding: 0 !important;
+  font-size: 1rem !important;
+  color: black !important;
+  text-align: justify !important;
+  break-inside: auto !important;
+}
+
+/* Texto en negrita dentro del libro */
+#bookContainer strong,
+.book strong,
+.book-wrapper .book strong {
+  font-weight: 700 !important;
+  color: inherit !important;
+}
+
+/* Texto en rojo dentro del libro */
+#bookContainer .book span[style*="color:red"],
+.book span[style*="color:red"] {
+  color: red !important;
+}
+
+/* Controles de navegación */
+.book-wrapper .controls {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  width: 100% !important;
+  padding: 15px 0 !important;
+  gap: 20px !important;
+  margin: 0 !important;
+}
+
+/* Botones de navegación */
+.book-wrapper .nav-btn {
+  background: #2c3e50 !important;
+  color: white !important;
+  border: none !important;
+  padding: 12px 24px !important;
+  border-radius: 6px !important;
+  cursor: pointer !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  transition: all 0.3s ease !important;
+  min-width: 120px !important;
+  margin: 0 !important;
+  text-transform: none !important;
+  letter-spacing: normal !important;
+}
+
+.book-wrapper .nav-btn:hover:not(:disabled) {
+  background: #34495e !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2) !important;
+}
+
+.book-wrapper .nav-btn:disabled {
+  background: #bdc3c7 !important;
+  cursor: not-allowed !important;
+  transform: none !important;
+  box-shadow: none !important;
+  opacity: 0.6 !important;
+}
+
+/* Información de página */
+.book-wrapper .page-info {
+  font-size: 14px !important;
+  color: #555 !important;
+  font-weight: 500 !important;
+  text-align: center !important;
+  flex: 1 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Animación de transición entre páginas */
+.book.transitioning {
+  opacity: 0.3 !important;
+  transform: scale(0.98) !important;
+  transition: all 0.2s ease !important;
+}
+
+/* Responsive - Tablets y móviles */
+@media (max-width: 768px) {
+  .book-wrapper .book {
+    column-count: 1 !important;
+    padding: 20px !important;
+  }
+  
+  .book-wrapper .controls {
+    flex-direction: column !important;
+    gap: 10px !important;
+  }
+  
+  .book-wrapper .nav-btn {
+    width: 100% !important;
+  }
+  
+  /* Títulos más pequeños en móviles */
+  #bookContainer h1,
+  .book h1,
+  .book-wrapper .book h1 {
+    font-size: 2.5rem !important;
+    margin: 1.2rem 0 0.8rem 0 !important;
+  }
+}
+
+/* Mobile muy pequeño */
+@media (max-width: 480px) {
+  .book-wrapper {
+    width: 95% !important;
+    height: 95% !important;
+  }
+  
+  .book-wrapper .book {
+    padding: 15px !important;
+  }
+  
+  #bookContainer h1,
+  .book h1,
+  .book-wrapper .book h1 {
+    font-size: 2rem !important;
+    margin: 1rem 0 0.6rem 0 !important;
+  }
+}
+
+/* ===========================================
+   ESTILOS PARA SISTEMA DE HIGHLIGHTING
+   =========================================== */
+
+/* Highlights/Resaltados */
+.book mark.highlight,
+#bookContainer mark.highlight {
+  background-color: #ffeb3b !important;
+  color: inherit !important;
+  padding: 2px 4px !important;
+  border-radius: 3px !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+  border: 1px solid transparent !important;
+}
+
+.book mark.highlight:hover,
+#bookContainer mark.highlight:hover {
+  background-color: #ffc107 !important;
+  border-color: #ff9800 !important;
+  box-shadow: 0 2px 4px rgba(255, 193, 7, 0.3) !important;
+}
+
+/* Botón de highlight flotante */
+.highlight-btn {
+  position: fixed !important;
+  top: 20px !important;
+  right: 20px !important;
+  background: #f39c12 !important;
+  color: white !important;
+  border: none !important;
+  padding: 10px 15px !important;
+  border-radius: 5px !important;
+  cursor: pointer !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  z-index: 1000 !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2) !important;
+  transition: all 0.3s ease !important;
+}
+
+.highlight-btn:hover {
+  background: #e67e22 !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3) !important;
+}
+
+/* Selección de texto mejorada */
+.book ::selection,
+#bookContainer ::selection {
+  background-color: #3498db !important;
+  color: white !important;
+}
+
+.book ::-moz-selection,
+#bookContainer ::-moz-selection {
+  background-color: #3498db !important;
+  color: white !important;
+}

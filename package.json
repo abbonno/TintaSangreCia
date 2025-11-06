@@ -1,0 +1,12 @@
+{
+  "name": "tintasangrecia",
+  "version": "1.0.0",
+  "description": "Proyectito genial para poemario/libro/recursos relacionados.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

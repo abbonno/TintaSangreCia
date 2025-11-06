@@ -1,0 +1,20 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Libro">
+  <main style="display:flex; justify-content:center; align-items:center; height:100vh; background:#f5f5f5;">
+    <div class="book-wrapper">
+      <div class="book" id="bookContainer"></div>
+      
+      <!-- Controles de navegación -->
+      <div class="controls">
+        <button id="prevBtn" class="nav-btn" disabled>← Anterior</button>
+        <span id="pageInfo" class="page-info">Página 1 de 1</span>
+        <button id="nextBtn" class="nav-btn">Siguiente →</button>
+      </div>
+    </div>
+  </main>
+
+  <script src="../scripts/book-paginator.js"></script>
+</Layout>
